@@ -2,21 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:firstapp/widget/Tasks_list.dart';
 import 'package:firstapp/screens/add_task_screen.dart';
-import 'package:firstapp/models/task.dart';
+import 'package:provider/provider.dart';
+import 'package:firstapp/models/task_data.dart';
 
-class TasksScreen extends StatefulWidget {
-  const TasksScreen({Key? key}) : super(key: key);
-  @override
-  State<TasksScreen> createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks = [
-    Task(name: 'go shoping'),
-    Task(name: 'BY a gift'),
-    Task(name: 'repair the car'),
-  ];
-
+class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,10 +20,10 @@ class _TasksScreenState extends State<TasksScreen> {
                         padding: EdgeInsets.only(
                             bottom: MediaQuery.of(context).viewInsets.bottom),
                         child: AddTaskScreen((newTaskTitle) {
-                          setState(() {
-                            tasks.add(Task(name: newTaskTitle));
-                            Navigator.pop(context);
-                          });
+                          // setState(() {
+                          //   tasks.add(Task(name: newTaskTitle));
+                          //   Navigator.pop(context);
+                          // });
                         }),
                       ),
                     ));
@@ -64,7 +53,7 @@ class _TasksScreenState extends State<TasksScreen> {
                           fontWeight: FontWeight.bold))
                 ],
               ),
-              Text('${tasks.length} Tasks',
+              Text('${Provider.of<TaskData>(context).tasks.length} Tasks',
                   style: TextStyle(color: Colors.white, fontSize: 18)),
               SizedBox(height: 20),
               Expanded(
@@ -74,7 +63,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
                     )),
-                child: TasksList(tasks),
+                child: TasksList(),
               ))
             ],
           ),

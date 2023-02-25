@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:firstapp/models/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
   final Function addTaskCallback;
@@ -34,7 +36,9 @@ class AddTaskScreen extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              addTaskCallback(newTaskTitle);
+              Provider.of<TaskData>(context, listen: false)
+                  .addTask(newTaskTitle!);
+              Navigator.pop(context);
             },
             child: Text('Add'),
             style: TextButton.styleFrom(
